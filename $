@@ -1,0 +1,9 @@
+fn main() {
+    println!("Hello, world!");
+}
+
+
+fn bs(arr: Vec<i32>, target: i32) {
+    let mut high: usize = arr.len();
+    let mut low: i32 = 0;
+}
