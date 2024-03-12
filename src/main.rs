@@ -58,6 +58,19 @@ fn bubble_sort(arr: &mut [i32]) {
 }
 
 
+// STALIN SORT
+fn stalin_sort(arr: &mut Vec<i32>) {
+    let mut idx: usize = 0;
+    for _i in 0..arr.len() - 1 {
+        idx += 1;
+        if arr[idx - 1] > arr[idx] {
+            arr.remove(idx);
+            idx -= 1;
+        }
+    }
+}
+
+
 // BINARY SEARCH
 fn binary_search(arr: &[i32], target: i32) -> i32 {
     let mut high: usize = arr.len();

@@ -18,15 +18,21 @@ fn bubble_sort_test() {
 }
 
 #[test]
+fn stalin_sort_test() {
+    let data: &mut Vec<i32> = &mut [1,5,-1,2,-100,2,3,4,5,6,-200].to_vec();
+    stalin_sort(data);
+    let result: &mut Vec<i32> = &mut [1,5,5,6].to_vec();
+    assert_eq!(data, result);
+}
+
+#[test]
 fn binary_search_test() {
     assert_eq!(binary_search(&SORTED_DATA, 2), 1);
 }
 
 #[test]
 fn linear_search_test() {
-    assert_eq!(linear_search(&SORTED_DATA, 2), 1);
+    assert_eq!(linear_search(&UNSORTED_DATA, 345), 2);
 }
-
-
 
 
