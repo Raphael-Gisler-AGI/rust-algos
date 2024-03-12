@@ -1,15 +1,16 @@
 
+#[cfg(test)]
+mod tests;
+
 fn main() {
-    let mut data: Vec<i32> = [1,-4,20,-1,500,4141,-3232].to_vec();
-    println!("{:?}", data);
-    quicksort(&mut data);
-    println!("{:?}", data);
+    println!("Hello World!");
 }
 
-fn quicksort(arr: &mut Vec<i32>) {
+// QUICKSORT
+fn quick_sort(arr: &mut [i32]) {
     qs(arr, 0, (arr.len() - 1) as i32)
 }
-fn qs(arr: &mut Vec<i32>, low: i32, high: i32) {
+fn qs(arr: &mut [i32], low: i32, high: i32) {
     if low >= high {
         return;
     }
@@ -19,7 +20,7 @@ fn qs(arr: &mut Vec<i32>, low: i32, high: i32) {
     qs(arr, pivot_idx + 1, high);
     qs(arr, low, pivot_idx - 1);
 }
-fn pivot(arr: &mut Vec<i32>, low: usize, high: usize) -> i32 {
+fn pivot(arr: &mut [i32], low: usize, high: usize) -> i32 {
     let pivot = arr[high];
 
     let mut idx: i32 = low as i32 - 1;
@@ -43,7 +44,8 @@ fn pivot(arr: &mut Vec<i32>, low: usize, high: usize) -> i32 {
 }
 
 
-fn bubble_sort(mut arr: Vec<i32>) -> Vec<i32> {
+// BUBBLE SORT
+fn bubble_sort(arr: &mut [i32]) {
     for i in 0..arr.len() {
         for j in 0..arr.len() - i - 1 {
             if arr[j] > arr[j + 1] {
@@ -53,19 +55,18 @@ fn bubble_sort(mut arr: Vec<i32>) -> Vec<i32> {
             }
         }
     }
-
-    arr
 }
 
-fn bs(arr: Vec<i32>, target: i32) -> Result<usize, i32> {
+
+// BINARY SEARCH
+fn binary_search(arr: &[i32], target: i32) -> i32 {
     let mut high: usize = arr.len();
     let mut low: usize = 0;
 
     while high > low {
-        let tmp: f32 = (low + (high - low) / 2) as f32;
-        let mid: usize = tmp.floor() as usize;
+        let mid: usize = low + (high - low) / 2;
         if arr[mid] == target {
-            return Ok(mid);
+            return mid as i32;
         }
         if arr[mid] > target {
             high = mid;
@@ -74,5 +75,18 @@ fn bs(arr: Vec<i32>, target: i32) -> Result<usize, i32> {
         }
     }
 
-    Err(-1)
+    -1
 }
+
+
+// LINEAR SEARCH
+fn linear_search(arr: &[i32], target: i32) -> i32 {
+    for (i, item) in arr.iter().enumerate() {
+        if item == &target {
+            return i as i32;
+        }
+    }
+
+    -1
+}
+
