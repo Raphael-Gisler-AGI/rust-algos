@@ -2,6 +2,21 @@
 #[cfg(test)]
 mod tests;
 
+#[derive(Debug,PartialEq)]
+struct Point (usize, usize);
+
+struct Matrix {
+    rows: [[u8;5]; 5]
+}
+impl Matrix {
+    fn get(&self, point: &Point) -> Option<u8> {
+        self.rows.get(point.0)?.get(point.1).copied()
+    }
+    fn set(&mut self, point: &Point, value: u8) {
+        *self.rows.get_mut(point.0).expect("").get_mut(point.1).expect("") = value;
+    }
+}
+
 fn main() {
     println!("Hello World!");
 }
@@ -101,5 +116,46 @@ fn linear_search(arr: &[i32], target: i32) -> i32 {
     }
 
     -1
+}
+
+// MAZE SOLVER
+fn maze_solver(mut maze: Matrix) -> Vec<Point> {
+    let mut path: Vec<Point> = vec![];
+
+    walk(&mut maze, Point(0,0), &mut path);
+
+    path
+}
+fn walk(maze: &mut Matrix, point: Point, path: &mut Vec<Point>) -> bool {
+    if let Some(value) = maze.get(&point) {
+        if value == 0 {
+            return false;
+        }
+
+        path.push(Point(point.0, point.1));
+
+        if value == 2 {
+            return true;
+        }
+    } else {
+        return false;
+    }
+
+    maze.set(&point, 0);
+
+    if walk(maze, Point(point.0, point.1 + 1), path) {
+        return true;
+    }
+    if walk(maze, Point(point.0, point.1 - 1), path) {
+        return true;
+    }
+    if walk(maze, Point(point.0 + 1, point.1), path) {
+        return true;
+    }
+    if walk(maze, Point(point.0 - 1, point.1), path) {
+        return true;
+    }
+
+    false
 }
 

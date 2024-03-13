@@ -35,4 +35,19 @@ fn linear_search_test() {
     assert_eq!(linear_search(&UNSORTED_DATA, 345), 2);
 }
 
+#[test]
+fn maze_solver_test() {
+    let matrix = Matrix {
+        rows: [
+            [1,1,1,0,0],
+            [0,0,1,1,0],
+            [0,2,0,1,0],
+            [0,1,1,1,0],
+            [0,0,0,0,0],
+        ]
+    };
+    let path: Vec<Point> = maze_solver(matrix);
+    let result_path: Vec<Point> = vec![Point(0,0), Point(0,1), Point(0,2), Point(1,2), Point(1,3), Point(2,3), Point(3,3), Point(3,2), Point(3,1), Point(2,1)];
 
+    assert_eq!(path, result_path);
+}
